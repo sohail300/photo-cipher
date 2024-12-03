@@ -48,7 +48,7 @@ const FormFiles = ({ type = "file", multiple, accept, files, setFiles }) => {
   };
 
   return (
-    <ul className="grid grid-cols-1 md:grid-cols-2 gap-8 bg-gray-900 bg-opacity-25 shadow-inner p-8 -mx-8 sm:-mx-4 sm:rounded-lg">
+    <ul className="grid grid-cols-1 md:grid-cols-2 gap-8 bg-gray-300 bg-opacity-100 shadow-inner p-8 -mx-8 sm:-mx-4 sm:rounded-lg">
       {files.map((file, index) => (
         <li
           key={index}

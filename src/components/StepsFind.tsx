@@ -5,6 +5,7 @@ import ProgressButton from "./ProgressButton";
 import FormPassword from "./FormPassword";
 import { findFilesInImage } from "@/utils/decrypt";
 import { getFileFromIPFS } from "@/utils/ipfsUtils"; // Utility to fetch files from IPFS
+import { toast } from "react-toastify";
 
 const StepsFind = () => {
   const [ipfsHash, setIpfsHash] = useState(""); // To hold the IPFS hash input
@@ -15,7 +16,7 @@ const StepsFind = () => {
 
   const findFiles = async () => {
     if (!ipfsHash) {
-      alert("Please enter the IPFS hash of the image.");
+      toast.error("Please enter the IPFS hash of the image.");
       return;
     }
 
@@ -37,12 +38,14 @@ const StepsFind = () => {
       const downloadUrl = URL.createObjectURL(hiddenZipBlob);
 
       setResult(downloadUrl); // Save the URL for downloading
-      alert(
+      toast.success(
         "Files found successfully. Click 'Download files' to retrieve them."
       );
     } catch (error) {
       console.error("Error finding hidden files:", error);
-      alert("Failed to find hidden files. Please check the hash or password.");
+      toast.error(
+        "Failed to find hidden files. Please check the hash or password."
+      );
     } finally {
       setFinding(false);
     }
@@ -65,10 +68,9 @@ const StepsFind = () => {
       <div>
         <p className="mb-8">Enter the IPFS hash of the image</p>
         <input
-          type="text"
-          className="border rounded px-4 py-2 w-full text-black"
+          className="bg-gray-600 bg-opacity-25 border-white placeholder-gray-700 placeholder:text-xl rounded-lg shadow-inner focus:outline-none focus-visible:ring ring-blue-500 ring-opacity-50 md:text-xl w-full px-4 py-2 border-2 border-transparent"
           value={ipfsHash}
-          onChange={(e) => setIpfsHash(e.target.value)}
+          onChange={(event) => setIpfsHash(event.target.value)}
           placeholder="Enter IPFS hash"
         />
       </div>

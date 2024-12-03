@@ -1,10 +1,8 @@
-import Banner from "@/components/Banner";
 import Flow from "@/components/Flow";
 import Footer from "@/components/Footer";
 
 const Home = () => (
-  <div className=" bg-zinc-700">
-    <Banner />
+  <div className=" bg-zinc-900 text-gray-200 relative min-h-screen">
     <Flow />
     <Footer />
   </div>

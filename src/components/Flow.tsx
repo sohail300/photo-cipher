@@ -20,9 +20,7 @@ const Flow = () => {
           </div>
         </noscript>
         <ChooseFlow onChoice={setFlow} />
-        <div>
-          {ChosenFlow ? <ChosenFlow /> : <p>Please select a valid flow.</p>}
-        </div>
+        <div>{ChosenFlow ? <ChosenFlow /> : null}</div>
       </div>
     </main>
   );

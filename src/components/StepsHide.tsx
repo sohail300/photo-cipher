@@ -6,6 +6,7 @@ import ProgressButton from "./ProgressButton";
 import { create } from "@web3-storage/w3up-client";
 import { hideFilesInImage } from "@/utils/encrypt";
 import FormPassword from "./FormPassword";
+import { toast } from "react-toastify";
 
 const StepsHide = () => {
   const [image, setImage] = useState([]);
@@ -20,11 +21,11 @@ const StepsHide = () => {
 
   const hideFiles = async () => {
     if (image.length === 0) {
-      alert("Please select a cover image");
+      toast.error("Please select a cover image");
       return;
     }
     if (files.length === 0) {
-      alert("Please select files to hide");
+      toast.error("Please select files to hide");
       return;
     }
 
@@ -86,10 +87,15 @@ const StepsHide = () => {
       setResult(result);
     } catch (error) {
       console.error("Error during hiding process:", error);
-      alert("An error occurred");
+      toast.error("An error occurred");
     } finally {
       setHiding(false);
     }
+  };
+
+  const copytoClipboard = () => {
+    navigator.clipboard.writeText(ipfsHash);
+    toast.success("Copied to clipboard!");
   };
 
   return (
@@ -124,7 +130,20 @@ const StepsHide = () => {
             valid={password === confirmPassword}
           />
         </div>
-        <div className=" bg-white p-4">{ipfsHash}</div>
+
+        {ipfsHash && (
+          <div className="cursor-pointer">
+            <p className="mb-4">
+              Hash Value <span className="text-gray-400">(Click to Copy)</span>
+            </p>
+            <div
+              className=" bg-white p-4 text-gray-800 rounded-lg"
+              onClick={() => copytoClipboard()}
+            >
+              {ipfsHash}
+            </div>
+          </div>
+        )}
 
         <div>
           <ProgressButton onClick={hideFiles} progress={progress}>
